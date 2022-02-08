@@ -7,12 +7,6 @@ Matrix(<nested list>) To get started.
     def __init__(self, matrix: list):
         """ Defining few things! """
         self.matrix = matrix
-
-        for i in self.matrix:
-            _row = len(self.matrix)
-            row = len(i)
-            if row != _row:
-                raise Exception('Not a valid matrix, inconsistent rows')
         self.row = len(matrix)
 
         for i in self.matrix:
