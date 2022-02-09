@@ -166,10 +166,7 @@ Counts occurences of elements
 Params -> interger, must be present in matrix
 Returns -> Dict
         """
-        if element not in self.matrix and element is not None:
-            raise Exception('Element not present in Matrix!')
-
-        elif element is not None:
+        if element is not None:
             count = sum(i.count(element) for i in self.matrix)
             return count
 
