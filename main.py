@@ -167,9 +167,13 @@ Params -> interger, must be present in matrix
 Returns -> Dict
         """
         if element is not None:
-            count = sum(i.count(element) for i in self.matrix)
-            return count
-
+            cnt = 0
+            for i in self.matrix:
+                for j in i:
+                    if j == element:
+                        cnt += 1
+            return cnt
+        
         else:
             count = {}
             for i in self.matrix:
@@ -178,7 +182,6 @@ Returns -> Dict
                         count[j] = 0
                     count[j] += 1
             return count
-
 
 if __name__ == '__main__':
     from random import randint
