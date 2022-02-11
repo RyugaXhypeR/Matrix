@@ -1,3 +1,5 @@
+from random import randint
+
 class Matrix:
     """
 To perform basic Matrix operations
@@ -160,7 +162,7 @@ Get Determinant of matrix objects
                 det -= temp
         return det
 
-    def count(self, element: int=None):
+    def count(self, element: int=None) -> dict:
         """
 Counts occurences of elements
 Params -> interger, must be present in matrix
@@ -182,12 +184,34 @@ Returns -> Dict
                         count[j] = 0
                     count[j] += 1
             return count
+        
+    def transpose(self):
+        """
+Returns the transpose of the matrix
+        """
+        new_matrix = [[0 for _ in range(self.row)] for _ in range(self.column)]
+        for i in range(self.row):
+            for j in range(self.column):
+                new_matrix[j][i] += self.matrix[i][j]
+
+        return Matrix(new_matrix)
+
+
+    def randomize(self, low: int=0, high: int=100):
+        """
+Radomizes the elements of an already existing matrix.
+Params -> low - lower limit (default = 0), high - upper limit (default = 100)
+Returns -> Matrix object
+        """
+        new_matrix = [[randint(low, high) for _ in range(self.column)] for _ in range(self.row)]
+        return Matrix(new_matrix)
 
 if __name__ == '__main__':
-    from random import randint
-
-    matrix1 = Matrix([[randint(1, 2) for i in range(3)] for i in range(3)])
+    matrix1 = Matrix([[randint(1, 2) for _ in range(3)] for _ in range(3)])
     print(matrix1)
     print(*matrix1)
+    print(matrix1.order)
     print(matrix1.count())
     print(matrix1.determinant())
+    print(matrix1.randomize())
+    print(matrix1.transpose())
