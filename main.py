@@ -323,14 +323,3 @@ class Matrix:
         """
         new_matrix = [[randint(low, high) for _ in range(self.column)] for _ in range(self.row)]
         return Matrix(new_matrix)
-
-
-
-if __name__ == '__main__':
-    matrix1 = [[1, 2], [3, 4]]
-    matrix1 = Matrix(matrix1)
-    # print(matrix1.determinant())
-    matrix2 = [[randint(0, 100) for _ in range(4)] for _ in range(4)]
-    print(matrix2)
-    matrix2 = Matrix(matrix2)
-    print(matrix2.determinant())
