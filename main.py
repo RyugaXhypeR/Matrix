@@ -44,7 +44,7 @@ class Matrix:
         """ Nothing fancy here! """
         return str(self.matrix)
 
-    def __add__(self, matrix: list):
+    def __add__(self, matrix):
         """
         Adds two matrix objects
 
@@ -77,7 +77,7 @@ class Matrix:
                 new_matrix.append(_col)
             return Matrix(new_matrix)
 
-    def __sub__(self, matrix: list):
+    def __sub__(self, matrix):
         """
         Subtracts two matrix objects
 
@@ -110,7 +110,7 @@ class Matrix:
                 new_matrix.append(_col)
             return Matrix(new_matrix)
 
-    def __mul__(self, matrix: list):
+    def __mul__(self, matrix):
         """
         Multiplying two matrix objects
 
@@ -304,6 +304,7 @@ class Matrix:
 
         return Matrix(new_matrix)
 
+
     def randomize(self, low: int = 0, high: int = 100):
         """
         Radomizes the elements of an already existing matrix.
@@ -329,3 +330,8 @@ class Matrix:
         """
         new_matrix = [[randint(low, high) for _ in range(self.column)] for _ in range(self.row)]
         return Matrix(new_matrix)
+
+
+
+if __name__ == '__main__':
+    pass
