@@ -2,6 +2,7 @@
 Class to perform the following matrix operations:
 
 ## Addition
+Adds two matrix objects.
 ```
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix2 = Matrix([[5, 6], [7, 8]])
@@ -10,6 +11,7 @@ Matrix([[6, 8], [10, 12]])
 ```
 
 ## Subtraction
+Subtracts two matrix objects.
 ```
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix2 = Matrix([[5, 6], [7, 8]])
@@ -18,6 +20,7 @@ Matrix([[-4, -4], [-4, -4]])
 ```
 
 ## Multiplication
+Multiplies two matrix objects.
 ```
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix2 = Matrix([[5, 6], [7, 8]])
@@ -26,6 +29,7 @@ Matrix([[19, 22], [43, 50]])
 ```
 
 ## Transpose
+Returns transpose of matrix.
 ```
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix1.transpose()
@@ -33,6 +37,7 @@ Matrix([[1, 3], [2, 4]])
 ```
 
 ## Determinant
+Returns determinant of matrix.
 ```
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix1.determinant()
@@ -40,6 +45,7 @@ Matrix([[1, 3], [2, 4]])
 ```
 
 ## Count
+Returns a count of elements in matrix.
 ```
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix1.count()
@@ -47,12 +53,9 @@ Matrix([[1, 3], [2, 4]])
 ```
 
 ## Randomize
+Randomizes the matrix.
 ```
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix1.randomize()
 [[0.9, 0.1], [0.1, 0.9]]
-<<<<<<< HEAD
 ```
-=======
-```
->>>>>>> 71cbb1fa51b538b7fa5429e3cd9733f7057deb9c

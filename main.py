@@ -219,6 +219,37 @@ class Matrix:
                 elif (row, col) == (2, 2):
                     return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
 
+                elif (row, col) == (3, 3):
+                    matrix1 = matrix[:]
+
+                    # Extending matrix to use Sarrus Rule.
+                    for i in range(row - 1):
+                        _col = []
+                        for j in range(col):
+                            _col.append(matrix1[i][j])
+                        matrix1.append(_col)
+
+                    # Calculating Determinant
+                    # Adding part
+                    add_pointers = [(i, i) for i in range(row)]
+                    result = 0
+                    for pointer in range(row):
+                        temp = 1
+                        for tup in add_pointers:
+                            i, j = tup
+                            temp *= matrix1[i + pointer][j]
+                        result += temp
+
+                    # Subtracting part
+                    sub_pointers = [((row - 1) - i, 0 + i) for i in range(row)]
+                    for pointers in range(row):
+                        temp = 1
+                        for tup in sub_pointers:
+                            i, j = tup
+                            temp *= matrix1[i + pointers][j]
+                        result -= temp
+                    return result
+
                 else:
                     sign = -1
                     result = 0
@@ -227,7 +258,7 @@ class Matrix:
                         mat = matrix[:][1:]
                         sub_matrix = [[mat[i][j] for j in range(col) if j != x] for i in range(row - 1)]
                         result += y * det(sub_matrix)
-                return result
+                    return result
 
             return det(self.matrix)
 
@@ -324,13 +355,11 @@ class Matrix:
         new_matrix = [[randint(low, high) for _ in range(self.column)] for _ in range(self.row)]
         return Matrix(new_matrix)
 
-
-
 if __name__ == '__main__':
-    matrix1 = [[1, 2], [3, 4]]
-    matrix1 = Matrix(matrix1)
-    # print(matrix1.determinant())
-    matrix2 = [[randint(0, 100) for _ in range(4)] for _ in range(4)]
-    print(matrix2)
-    matrix2 = Matrix(matrix2)
-    print(matrix2.determinant())
+    import numpy as np
+
+    matrix = [[randint(1, 10) for _ in range(10)] for _ in range(7)]
+    mat = Matrix(matrix)
+    nat = np.array(matrix)
+    print(mat.determinant())
+    print(np.linalg.det(nat))
