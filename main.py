@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 from __future__ import annotations
-=======
->>>>>>> f7d9b949b494b61e2cd26aa17f2ea27377e0ca1c
 from random import randint
 
 class Matrix:
@@ -360,8 +357,4 @@ class Matrix:
         return Matrix(new_matrix)
 
 if __name__ == '__main__':
-<<<<<<< HEAD
     pass
-=======
-    pass
->>>>>>> f7d9b949b494b61e2cd26aa17f2ea27377e0ca1c
