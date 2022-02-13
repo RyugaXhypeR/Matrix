@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 from random import randint
 
 
@@ -690,4 +690,4 @@ class Matrix:
         """
         new_matrix = [[randint(low, high) for _ in range(self.column)] for _ in range(self.row)]
         return Matrix(new_matrix)
->>>>>>> fda57ca263014dcf0373a57c23f5ac98d79a62de
+
