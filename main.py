@@ -1,14 +1,35 @@
 from random import randint
 
+
 class Matrix:
     """
-To perform basic Matrix operations
-Matrix(<nested list>) To get started.
+    To perform basic Matrix operations
+    Matrix(<nested list>) To get started.
+
+    Parameters
+    ----------
+    matrix : list
+
+    Example
+    ---------
+    >>> matrix = [[1, 2, 3], [4, 5, 6]]
+    >>> matrix = Matrix(matrix)
+    >>> matrix
+    [[1, 2, 3], [4, 5, 6]]
+    >>> matrix.row
+    2
+    >>> matrix.column
+    3
+    >>> matrix.order
+    '2x3'
     """
 
     def __init__(self, matrix: list):
-        """ Defining few things! """
+        """
+        Initializes the matrix object
+        """
         self.matrix = matrix
+
         self.row = len(matrix)
 
         for i in self.matrix:
@@ -25,9 +46,25 @@ Matrix(<nested list>) To get started.
 
     def __add__(self, matrix: list):
         """
-Adds two matrix objects
-Params -> Matrix Objects only!
-Retruns -> A Matrix Onject!
+        Adds two matrix objects
+
+        Parameters
+        ----------
+        matrix : Matrix object
+
+        Returns
+        -------
+        Matrix object
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix1 = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix1 = Matrix(matrix1)
+        >>> matrix + matrix1
+        [[2, 4, 6], [8, 10, 12]]
+
         """
         if self.order != matrix.order:
             raise Exception(f'Expected order {self.order} got {matrix.order}')
@@ -42,9 +79,25 @@ Retruns -> A Matrix Onject!
 
     def __sub__(self, matrix: list):
         """
-Subtracts two matrix objects
-Params -> Matrix Objects only!
-Retruns -> A Matrix Onject
+        Subtracts two matrix objects
+
+        Parameters
+        ----------
+        matrix : Matrix object
+
+        Returns
+        -------
+        Matrix object
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix1 = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix1 = Matrix(matrix1)
+        >>> matrix - matrix1
+        [[0, 0, 0], [0, 0, 0]]
+
         """
         if self.order != matrix.order:
             raise Exception(f'Expected order {self.order} for {matrix.order}')
@@ -59,9 +112,25 @@ Retruns -> A Matrix Onject
 
     def __mul__(self, matrix: list):
         """
-Multiplying two matrix objects
-Params -> Matrix objects only!
-Return -> A Matrix Object
+        Multiplying two matrix objects
+
+        Parameters
+        ----------
+        matrix : Matrix object
+
+        Returns
+        -------
+        Matrix object
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix1 = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        >>> matrix1 = Matrix(matrix1)
+        >>> matrix * matrix1
+        [[30, 36, 42], [66, 81, 96], [102, 126, 150]]
+
         """
         if self.order[2] != matrix.order[0]:
             raise Exception(f'Cannot multiply these matrices!')
@@ -74,99 +143,122 @@ Return -> A Matrix Object
                         new_matrix[i][j] += self.matrix[i][k] * matrix.matrix[k][j]
             return Matrix(new_matrix)
 
-    def __truediv__(self, matrix: list):
-        """
-Dividing two matrix objects
-Params -> Matrix objects only!
-Return -> A Matrix Object
-        """
-        if self.order[2] != matrix.order[0]:
-            raise Exception('Cannot divide these matrices!')
-        else:
-            new_matrix = [[0 for _ in range(matrix.column)] for _ in range(self.row)]
-            matrix.matrix = [[round(1 / matrix.matrix[i][j], 1) for j in range(matrix.column)] for i in
-                             range(matrix.row)]
-            for i in range(self.row):
-                _col = []
-                for j in range(matrix.column):
-                    for k in range(matrix.row):
-                        new_matrix[i][j] += self.matrix[i][k] * matrix.matrix[k][j]
-
-            new_matrix = [[round(new_matrix[i][j], 1) for j in range(matrix.column)] for i in range(self.row)]
-
-            return Matrix(new_matrix)
-
-    def __floordiv__(self, matrix: list):
-        """
-Floor Division of two matrix objects
-Params -> Matrix Objects only!
-Returns -> A Matrux Object
-        """
-        if self.order[2] != matrix.order[0]:
-            raise Exception('Cannot divide these matrices!')
-        else:
-            new_matrix = [[0 for _ in range(matrix.column)] for _ in range(self.row)]
-            matrix.matrix = [[round(1 // matrix.matrix[i][j], 1) for j in range(matrix.column)] for i in
-                             range(matrix.row)]
-            for i in range(self.row):
-                _col = []
-                for j in range(matrix.column):
-                    for k in range(matrix.row):
-                        new_matrix[i][j] += self.matrix[i][k] * matrix.matrix[k][j]
-
-            new_matrix = [[round(new_matrix[i][j], 1) for j in range(matrix.column)] for i in range(self.row)]
-
-            return Matrix(new_matrix)
-
     def __len__(self) -> int:
         """
-Returns number elements present in the matrix!
+        Calculates number elements present in the matrix!
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        int
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> len(matrix)
+        6
         """
         return self.row * self.column
 
     def __iter__(self):
         """
-Returns all rows of the matrix
+        Sends all rows of the matrix
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        iterator
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> print(*matrix)
+        [1, 2, 3] [4, 5, 6]
+
         """
         for i in self.matrix:
             yield i
 
-    def determinant(self) -> float:
+    def determinant(self) -> int:
         """
-Get Determinant of matrix objects
+        Calculates the Determinant of matrix objects.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        int
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix.determinant()
+        0
         """
         if self.row != self.column:
             raise Exception('Cannot get determinant of this matrix! Must be a square Matrix')
         else:
+            self.matrix1 = self.matrix[:]
+
+            # Extending matrix to use Sarrus Rule.
             for i in range(self.row - 1):
                 _col = []
                 for j in range(self.column):
-                    _col.append(self.matrix[i][j])
-                self.matrix.append(_col)
+                    _col.append(self.matrix1[i][j])
+                self.matrix1.append(_col)
 
+            # Calculating Determinant
+            # Adding part
             add_pointers = [(i, i) for i in range(self.row)]
             det = 0
             for pointer in range(self.row):
                 temp = 1
                 for tup in add_pointers:
                     i, j = tup
-                    temp *= self.matrix[i + pointer][j]
+                    temp *= self.matrix1[i + pointer][j]
                 det += temp
 
+            # Subtracting part
             sub_pointers = [((self.row - 1) - i, 0 + i) for i in range(self.row)]
             for pointers in range(self.row):
                 temp = 1
                 for tup in sub_pointers:
                     i, j = tup
-                    temp *= self.matrix[i + pointers][j]
+                    temp *= self.matrix1[i + pointers][j]
                 det -= temp
         return det
 
-    def count(self, element: int=None) -> dict:
+    def count(self, element: int = None) -> dict:
         """
-Counts occurences of elements
-Params -> interger, must be present in matrix
-Returns -> Dict
+        Counts occurences of elements
+
+        Parameters
+        ----------
+        element : int = None
+
+        Returns
+        -------
+        dict
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix.count()
+        {1: 1, 2: 1, 3: 1, 4: 1, 5: 1, 6: 1}
+        >>> matrix.count(2)
+        {2: 1}
         """
         if element is not None:
             cnt = 0
@@ -174,8 +266,8 @@ Returns -> Dict
                 for j in i:
                     if j == element:
                         cnt += 1
-            return cnt
-        
+            return {element: cnt}
+
         else:
             count = {}
             for i in self.matrix:
@@ -184,10 +276,26 @@ Returns -> Dict
                         count[j] = 0
                     count[j] += 1
             return count
-        
+
     def transpose(self):
         """
-Returns the transpose of the matrix
+        Calculates the transpose of the matrix.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        Matrix
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix.transpose()
+        [[1, 4], [2, 5], [3, 6]]
+
         """
         new_matrix = [[0 for _ in range(self.row)] for _ in range(self.column)]
         for i in range(self.row):
@@ -196,22 +304,28 @@ Returns the transpose of the matrix
 
         return Matrix(new_matrix)
 
-
-    def randomize(self, low: int=0, high: int=100):
+    def randomize(self, low: int = 0, high: int = 100):
         """
-Radomizes the elements of an already existing matrix.
-Params -> low - lower limit (default = 0), high - upper limit (default = 100)
-Returns -> Matrix object
+        Radomizes the elements of an already existing matrix.
+
+        Parameters
+        ----------
+        low : int = 0
+        high : int = 100
+
+        Returns
+        -------
+        Matrix object
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix.randomize()
+        [[23, 35, 35], [2, 28, 86]]
+        >>> matrix.randomize(low=0, high=10)
+        [[9, 5, 6], [7, 10, 9]]
+
         """
         new_matrix = [[randint(low, high) for _ in range(self.column)] for _ in range(self.row)]
         return Matrix(new_matrix)
-
-if __name__ == '__main__':
-    matrix1 = Matrix([[randint(1, 2) for _ in range(3)] for _ in range(3)])
-    print(matrix1)
-    print(*matrix1)
-    print(matrix1.order)
-    print(matrix1.count())
-    print(matrix1.determinant())
-    print(matrix1.randomize())
-    print(matrix1.transpose())
