@@ -209,35 +209,28 @@ class Matrix:
         if self.row != self.column:
             raise Exception('Cannot get determinant of this matrix! Must be a square Matrix')
         else:
-            self.matrix1 = self.matrix[:]
+            def det(matrix):
+                row = len(matrix)
+                col = len(matrix[0])
 
-            # Extending matrix to use Sarrus Rule.
-            for i in range(self.row - 1):
-                _col = []
-                for j in range(self.column):
-                    _col.append(self.matrix1[i][j])
-                self.matrix1.append(_col)
+                if (row, col) == (1, 1):
+                    return matrix[0][0]
 
-            # Calculating Determinant
-            # Adding part
-            add_pointers = [(i, i) for i in range(self.row)]
-            det = 0
-            for pointer in range(self.row):
-                temp = 1
-                for tup in add_pointers:
-                    i, j = tup
-                    temp *= self.matrix1[i + pointer][j]
-                det += temp
+                elif (row, col) == (2, 2):
+                    return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
 
-            # Subtracting part
-            sub_pointers = [((self.row - 1) - i, 0 + i) for i in range(self.row)]
-            for pointers in range(self.row):
-                temp = 1
-                for tup in sub_pointers:
-                    i, j = tup
-                    temp *= self.matrix1[i + pointers][j]
-                det -= temp
-        return det
+                else:
+                    sign = -1
+                    result = 0
+                    row1 = [matrix[0][i] * (sign ** i) for i in range(col)]
+                    for x, y in enumerate(row1):
+                        mat = matrix[:][1:]
+                        sub_matrix = [[mat[i][j] for j in range(col) if j != x] for i in range(row - 1)]
+                        result += y * det(sub_matrix)
+                return result
+
+            return det(self.matrix)
+
 
     def count(self, element: int = None) -> dict:
         """
@@ -334,4 +327,10 @@ class Matrix:
 
 
 if __name__ == '__main__':
-    pass
+    matrix1 = [[1, 2], [3, 4]]
+    matrix1 = Matrix(matrix1)
+    # print(matrix1.determinant())
+    matrix2 = [[randint(0, 100) for _ in range(4)] for _ in range(4)]
+    print(matrix2)
+    matrix2 = Matrix(matrix2)
+    print(matrix2.determinant())
