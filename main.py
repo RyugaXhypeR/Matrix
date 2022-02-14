@@ -29,7 +29,6 @@ class Matrix:
         Initializes the matrix object
         """
         self.matrix = matrix
-
         self.row = len(matrix)
 
         for i in self.matrix:
@@ -37,6 +36,7 @@ class Matrix:
             col = len(i)
             if col != _col:
                 raise Exception('Not a valid matrix, inconsistent columns')
+
         self.column = len(self.matrix[0])
         self.order = f'{self.row}x{self.column}'
 
@@ -187,6 +187,11 @@ class Matrix:
         for i in self.matrix:
             yield i
 
+    def _el_items(self, row: int, column: int, matrix: list) -> list:
+        x = len(matrix)
+        y = len(matrix[0])
+        return [[matrix[i][j] for j in range(y) if j != column] for i in range(x) if i != row]
+
     def determinant(self) -> int:
         """
         Calculates the Determinant of matrix objects.
@@ -209,7 +214,6 @@ class Matrix:
         if self.row != self.column:
             raise Exception('Cannot get determinant of this matrix! Must be a square Matrix')
         else:
-            # @cache
             def det(matrix):
                 row = len(matrix)
                 col = len(matrix[0])
@@ -355,6 +359,93 @@ class Matrix:
         """
         new_matrix = [[randint(low, high) for _ in range(self.column)] for _ in range(self.row)]
         return Matrix(new_matrix)
+
+    def adjoint(self) -> Matrix:
+        """
+        Calculates the adjoint of the matrix.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        Matrix object
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix.adjoint()
+        [[-3, -6, -3], [-6, -12, -6], [-3, -6, -3]]
+
+        """
+
+        if self.row != self.column:
+            raise Exception('Cannot get adj of this matrix! Must be a square Matrix')
+        else:
+            def adj(matrix):
+                row = len(matrix)
+                col = len(matrix[0])
+
+                if (row, col) == (1, 1):
+                    return matrix
+
+                elif (row, col) == (2, 2):
+                    matrix[0][0], matrix[1][1] = matrix[1][1], matrix[0][0]
+                    matrix[1][0] *= -1
+                    matrix[0][1] *= -1
+                    return matrix
+
+                else:
+                    mat = matrix[:]
+                    new_matrix = [[0 for _ in range(row)] for _ in range(col)]
+                    for i in range(row):
+                        for j in range(col):
+                            sub_mat = self._el_items(i, j, mat)
+                            sub_matrix = Matrix(sub_mat)
+                            new_matrix[i][j] += sub_matrix.determinant()
+                    return new_matrix
+
+            return Matrix(adj(self.matrix))
+
+    def inverse(self) -> Matrix:
+        """
+        Calculates the inverse of the matrix.
+
+        Parameters
+        ----------
+        None
+
+        Returns
+        -------
+        Matrix object
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix.inverse()
+        'Cannot get inverse of this matrix! Determinant is 0'
+        >>> matrix = [[1, 2, 3], [6, 6, 6], [7, 7, 9]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix.inverse()
+        [[-1.0, -1.0, 0.0], [0.25, 1.0, 0.5833], [0.5, 1.0, 0.5]]
+
+        """
+        if self.row != self.column:
+            raise Exception('Cannot get inverse of this matrix! Must be a square Matrix')
+        else:
+            det = self.determinant()
+            if det == 0:
+                return 'Cannot get inverse of this matrix! Determinant is 0'
+            adj = list(self.adjoint())
+            inverse_matrix = [[0 for _ in range(self.row)] for _ in range(self.column)]
+            for i in range(self.row):
+                for j in range(self.column):
+                    inverse_matrix[i][j] += round(adj[i][j] / det, 4)
+
+            return Matrix(inverse_matrix)
 
 if __name__ == '__main__':
     pass
