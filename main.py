@@ -214,6 +214,10 @@ class Matrix:
         if self.row != self.column:
             raise Exception('Cannot get determinant of this matrix! Must be a square Matrix')
         else:
+<<<<<<< HEAD
+=======
+            
+>>>>>>> ef9fc8170d764f568a24ff46f6f2376d1850ccb8
             def det(matrix):
                 row = len(matrix)
                 col = len(matrix[0])
