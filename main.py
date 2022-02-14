@@ -209,7 +209,7 @@ class Matrix:
         if self.row != self.column:
             raise Exception('Cannot get determinant of this matrix! Must be a square Matrix')
         else:
-            # @cache
+            
             def det(matrix):
                 row = len(matrix)
                 col = len(matrix[0])
