@@ -377,7 +377,7 @@ class Matrix:
         >>> matrix = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
         >>> matrix = Matrix(matrix)
         >>> matrix.adjoint()
-        [[-3, -6, -3], [-6, -12, -6], [-3, -6, -3]]
+        [[-3, 6, -3], [6, -12, 6], [-3, 6, -3]]
 
         """
 
@@ -404,10 +404,10 @@ class Matrix:
                         for j in range(col):
                             sub_mat = self._el_items(i, j, mat)
                             sub_matrix = Matrix(sub_mat)
-                            new_matrix[i][j] += sub_matrix.determinant()
+                            new_matrix[i][j] += sub_matrix.determinant() * ((-1) ** (i + j))
                     return new_matrix
 
-            return Matrix(adj(self.matrix))
+            return Matrix(adj(self.matrix)).transpose()
 
     def inverse(self) -> Matrix:
         """
@@ -430,7 +430,7 @@ class Matrix:
         >>> matrix = [[1, 2, 3], [6, 6, 6], [7, 7, 9]]
         >>> matrix = Matrix(matrix)
         >>> matrix.inverse()
-        [[-1.0, -1.0, 0.0], [0.25, 1.0, 0.5833], [0.5, 1.0, 0.5]]
+        [[-1.0, -0.25, 0.5], [1.0, 1.0, -1.0], [0.0, -0.5833, 0.5]]
 
         """
         if self.row != self.column:
@@ -443,7 +443,7 @@ class Matrix:
             inverse_matrix = [[0 for _ in range(self.row)] for _ in range(self.column)]
             for i in range(self.row):
                 for j in range(self.column):
-                    inverse_matrix[i][j] += round(adj[i][j] / det, 4)
+                    inverse_matrix[i][j] += round(adj[i][j]*(1**(i+j)) / det, 4)
 
             return Matrix(inverse_matrix)
 
