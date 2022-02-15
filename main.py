@@ -187,7 +187,7 @@ class Matrix:
         for i in self.matrix:
             yield i
 
-    def __getitem__(self, index: int) -> list:
+    def __getitem__(self, index: int) -> list | int:
         """
         Returns a row of the matrix
 
