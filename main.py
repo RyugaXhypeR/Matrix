@@ -24,7 +24,7 @@ class Matrix:
     '2x3'
     """
 
-    def __init__(self, matrix: list):
+    def __init__(self, matrix: Union[list[list[int]], list[list[float]]]):
         """
         Initializes the matrix object
         """
@@ -187,6 +187,28 @@ class Matrix:
         for i in self.matrix:
             yield i
 
+    def __getitem__(self, index: int) -> list:
+        """
+        Returns a row of the matrix
+
+        Parameters
+        ----------
+        index : int
+
+        Returns
+        -------
+        list
+
+        Example
+        -------
+        >>> matrix = [[1, 2, 3], [4, 5, 6]]
+        >>> matrix = Matrix(matrix)
+        >>> matrix[0]
+        [1, 2, 3]
+
+        """
+        return self.matrix[index]
+
     def _el_items(self, row: int, column: int, matrix: list) -> list:
         x = len(matrix)
         y = len(matrix[0])
@@ -221,9 +243,11 @@ class Matrix:
                 if (row, col) == (1, 1):
                     return matrix[0][0]
 
+                # hard coding for 2x2
                 elif (row, col) == (2, 2):
                     return matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0]
 
+                # using sarrus method to solve for 3x3, its a little faster.
                 elif (row, col) == (3, 3):
                     matrix1 = matrix[:]
 
