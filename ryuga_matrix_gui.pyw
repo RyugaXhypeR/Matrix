@@ -311,7 +311,7 @@ class MatrixGUI:
                 else:
                     self.cs_entry.config(bg=self.red)
                     self.rs_entry.config(bg=self.red)
-                    self.given_matrix_result = "Your matrix is too large for this operation!"
+                    self.given_matrix_result = "Your matrix is too large for this operation!\n(max allowed: 8x8)"
             else:
                 self.cs_entry.config(bg=self.red)
                 self.rs_entry.config(bg=self.red)
