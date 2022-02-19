@@ -1,19 +1,28 @@
 from tkinter import *
 from tkinter import messagebox
 from sys import exit as exitt
+from os import system
 try:
     from pyperclip import copy
 except ModuleNotFoundError:
     window = Tk()
     window.withdraw()
-    messagebox.showerror('pyperclip package missing', 'Please install the package "pyperclip" for python using command prompt. Use this command:\npip install pyperclip')
-    exitt()
+    messagebox.showwarning('pyperclip package missing', 'Missing package "pyperclip" for the working of this program. Click OK to attempt to install pyperclip for python.')
+    status = system("python -m pip install pyperclip")
+    if status != 0:
+        messagebox.showerror('Error', "Couldn't install pyperclip automatically. Please try again manually in command prompt using command:\n\npip install pyperclip")
+        window.destroy()
+        exitt()
+    else:
+        window.destroy()
+        pass
 try:
     from main import Matrix
 except ModuleNotFoundError:
     window = Tk()
     window.withdraw()
     messagebox.showerror('Matrix file not found', "Please save your python file containing the Matrix class in the same folder as this file and name it 'main.py'")
+    window.destroy()
     exitt()
 
 
