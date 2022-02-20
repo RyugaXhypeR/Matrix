@@ -473,4 +473,5 @@ class Matrix:
             return Matrix(inverse_matrix)
 
 if __name__ == '__main__':
-    print('Hello World!')
+    pass
+
