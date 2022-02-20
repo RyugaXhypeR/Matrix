@@ -59,3 +59,19 @@ Randomizes the matrix.
 >>> matrix1.randomize()
 [[0.9, 0.1], [0.1, 0.9]]
 ```
+
+## Adjoint
+Returns the adjoint of the matrix.
+```
+>>> matrix1 = Matrix([[1, 2], [3, 4]])
+>>> matrix1.adjoint()
+Matrix([[4, -3], [-2, 1]])
+```
+
+## Inverse
+Returns the inverse of the matrix.
+```
+>>> matrix1 = Matrix([[1, 2], [3, 4]])
+>>> matrix1.inverse()
+[[-0.5, -1.5], [-1.0, -2.0]]
+```
