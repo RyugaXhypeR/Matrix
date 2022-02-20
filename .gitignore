@@ -2,6 +2,7 @@
 __test__.py
 matrix_test.py
 agw.py
+agw2.py
 
 # directory
 .__pycache__/
