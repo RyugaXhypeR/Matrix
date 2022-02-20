@@ -1,6 +1,7 @@
 from __future__ import annotations
 from random import randint
 
+
 class Matrix:
     """
     To perform basic Matrix operations
@@ -209,7 +210,7 @@ class Matrix:
         """
         return self.matrix[index]
 
-    def _el_items(self, row: int, column: int, matrix: list) -> list:
+    def _el_items(self, row: int, column: int, matrix: list[list[int]]) -> list[list[int]]:
         x = len(matrix)
         y = len(matrix[0])
         return [[matrix[i][j] for j in range(y) if j != column] for i in range(x) if i != row]
@@ -292,7 +293,7 @@ class Matrix:
             return det(self.matrix)
 
 
-    def count(self, element: int = None) -> dict:
+    def count(self, element: int = None) -> dict[int, int] | dict[float, int]:
         """
         Counts occurences of elements
 
@@ -472,4 +473,4 @@ class Matrix:
             return Matrix(inverse_matrix)
 
 if __name__ == '__main__':
-    pass
+    print('Hello World!')
