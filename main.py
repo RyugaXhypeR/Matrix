@@ -25,7 +25,10 @@ class Matrix:
     '2x3'
     """
 
-    def __init__(self, matrix: Union[list[list[int]], list[list[float]]]):
+    def __init__(
+            self,
+            matrix: list[list[int |float]]
+    ):
         """
         Initializes the matrix object
         """
@@ -210,7 +213,11 @@ class Matrix:
         """
         return self.matrix[index]
 
-    def _el_items(self, row: int, column: int, matrix: list[list[int]]) -> list[list[int]]:
+    def _el_items(
+            self, row: int, column: int,
+            matrix: list[list[int | float]]
+    ) -> list[list[int | float]]:
+
         x = len(matrix)
         y = len(matrix[0])
         return [[matrix[i][j] for j in range(y) if j != column] for i in range(x) if i != row]
@@ -293,7 +300,7 @@ class Matrix:
             return det(self.matrix)
 
 
-    def count(self, element: int = None) -> dict[int, int] | dict[float, int]:
+    def count(self, element: int = None) -> dict[int | float, int]:
         """
         Counts occurences of elements
 
@@ -474,4 +481,3 @@ class Matrix:
 
 if __name__ == '__main__':
     pass
-
