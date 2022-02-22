@@ -27,7 +27,7 @@ class Matrix:
 
     def __init__(
             self,
-            matrix: list[list[int |float]]
+            matrix: list[list[int | float]]
     ):
         """
         Initializes the matrix object
