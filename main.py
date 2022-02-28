@@ -25,7 +25,10 @@ class Matrix:
     '2x3'
     """
 
-    def __init__(self, matrix: Union[list[list[int]], list[list[float]]]):
+    def __init__(
+            self,
+            matrix: list[list[int | float]]
+    ):
         """
         Initializes the matrix object
         """
@@ -42,7 +45,7 @@ class Matrix:
         self.order = f'{self.row}x{self.column}'
 
     def __repr__(self):
-        """ Nothing fancy here! """
+        """ String Instance """
         return str(self.matrix)
 
     def __add__(self, matrix: Matrix) -> Matrix:
@@ -70,13 +73,11 @@ class Matrix:
         if self.order != matrix.order:
             raise Exception(f'Expected order {self.order} got {matrix.order}')
         else:
-            new_matrix = []
-            for i in range(self.row):
-                _col = []
-                for j in range(self.column):
-                    _col.append(self.matrix[i][j] + matrix.matrix[i][j])
-                new_matrix.append(_col)
-            return Matrix(new_matrix)
+            return [
+                [matrix.matrix[i][j] + self.matrix[i][j] for j in range(self.column)]
+                for i in range(self.row)
+            ]
+
 
     def __sub__(self, matrix: Matrix) -> Matrix:
         """
@@ -103,13 +104,11 @@ class Matrix:
         if self.order != matrix.order:
             raise Exception(f'Expected order {self.order} for {matrix.order}')
         else:
-            new_matrix = []
-            for i in range(self.row):
-                _col = []
-                for j in range(self.column):
-                    _col.append(self.matrix[i][j] - matrix.matrix[i][j])
-                new_matrix.append(_col)
-            return Matrix(new_matrix)
+            return [
+                [matrix.matrix[i][j] - self.matrix[i][j] for j in range(self.column)]
+                for i in range(self.row)
+            ]
+
 
     def __mul__(self, matrix: Matrix) -> Matrix:
         """
@@ -188,7 +187,7 @@ class Matrix:
         for i in self.matrix:
             yield i
 
-    def __getitem__(self, index: int) -> list | int:
+    def __getitem__(self, index: int) -> list | int | float:
         """
         Returns a row of the matrix
 
@@ -198,7 +197,7 @@ class Matrix:
 
         Returns
         -------
-        list
+        list | int | float
 
         Example
         -------
@@ -210,7 +209,11 @@ class Matrix:
         """
         return self.matrix[index]
 
-    def _el_items(self, row: int, column: int, matrix: list[list[int]]) -> list[list[int]]:
+    def _el_items(
+            self, row: int, column: int,
+            matrix: list[list[int | float]]
+    ) -> list[list[int | float]]:
+
         x = len(matrix)
         y = len(matrix[0])
         return [[matrix[i][j] for j in range(y) if j != column] for i in range(x) if i != row]
@@ -293,7 +296,7 @@ class Matrix:
             return det(self.matrix)
 
 
-    def count(self, element: int = None) -> dict[int, int] | dict[float, int]:
+    def count(self, element: int = None) -> dict[int | float, int]:
         """
         Counts occurences of elements
 
@@ -474,4 +477,3 @@ class Matrix:
 
 if __name__ == '__main__':
     pass
-
