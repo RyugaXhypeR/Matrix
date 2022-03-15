@@ -62,7 +62,7 @@ Randomizes the matrix.
 
 ## [Adjoint](https://github.com/RyugaXhypeR/Matrix/blob/main/main.py#L454-L502)
 Returns the adjoint of the matrix.
-```
+
 ```python
 >>> matrix1 = Matrix([[1, 2], [3, 4]])
 >>> matrix1.adjoint()
