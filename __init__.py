@@ -1,1 +1,1 @@
-from .main import Matrix
+from .matrix import Matrix
